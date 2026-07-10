@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Generate Assessment
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/assessment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="assessment-section">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<span class="badge bg-primary">
+AI Assessment
+</span>
+
+<h1 class="section-title mt-3">
+Generate New Assessment
+</h1>
+
+<p class="section-subtitle">
+Generate AI-powered MCQ and Theory assessments from any topic or PDF.
+</p>
+
+</div>
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="assessment-card">
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="mb-4">
+
+<label class="form-label">
+
+Assessment Type
+
+</label>
+
+<select
+name="assessment_type"
+id="assessmentType"
+class="form-select">
+
+<option value="TOPIC">
+
+Generate from Topic
+
+</option>
+
+<option value="PDF">
+
+Generate from PDF
+
+</option>
+
+</select>
+
+</div>
+
+<div id="topicSection">
+
+<div class="mb-4">
+
+<label class="form-label">
+
+Topic
+
+</label>
+
+<input
+type="text"
+name="topic"
+class="form-control"
+placeholder="Example : Python Programming">
+
+</div>
+
+</div>
+
+<div id="pdfSection" style="display:none;">
+
+<div class="mb-4">
+
+<label class="form-label">
+
+Upload PDF
+
+</label>
+
+<input
+type="file"
+name="pdf"
+accept=".pdf"
+class="form-control">
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-4 mb-4">
+
+<label class="form-label">
+
+Difficulty
+
+</label>
+
+<select
+name="difficulty"
+class="form-select">
+
+<option value="Easy">
+
+Easy
+
+</option>
+
+<option value="Medium">
+
+Medium
+
+</option>
+
+<option value="Hard">
+
+Hard
+
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-4 mb-4">
+
+<label class="form-label">
+
+MCQ Questions
+
+</label>
+
+<input
+type="number"
+name="mcqs"
+class="form-control"
+value="10"
+min="1"
+max="50"
+required>
+
+</div>
+
+<div class="col-md-4 mb-4">
+
+<label class="form-label">
+
+Theory Questions
+
+</label>
+
+<input
+type="number"
+name="theory"
+class="form-control"
+value="2"
+min="0"
+max="20"
+required>
+
+</div>
+
+</div>
+
+<div class="d-grid">
+
+<button
+type="submit"
+class="btn btn-primary btn-lg">
+
+<i class="bi bi-stars me-2"></i>
+
+Generate Assessment
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row mt-5">
+
+<div class="col-lg-4">
+
+<div class="info-card">
+
+<i class="bi bi-lightning-charge-fill"></i>
+
+<h4>
+
+Fast Generation
+
+</h4>
+
+<p>
+
+Generate assessments in seconds using Groq AI.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="info-card">
+
+<i class="bi bi-cpu-fill"></i>
+
+<h4>
+
+AI Generated
+
+</h4>
+
+<p>
+
+High quality MCQs and Theory questions.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="info-card">
+
+<i class="bi bi-bar-chart-fill"></i>
+
+<h4>
+
+Detailed Analysis
+
+</h4>
+
+<p>
+
+Receive explanations and performance analytics.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+const assessmentType=document.getElementById("assessmentType");
+
+const topicSection=document.getElementById("topicSection");
+
+const pdfSection=document.getElementById("pdfSection");
+
+assessmentType.addEventListener("change",function(){
+
+if(this.value==="PDF"){
+
+topicSection.style.display="none";
+
+pdfSection.style.display="block";
+
+}
+
+else{
+
+topicSection.style.display="block";
+
+pdfSection.style.display="none";
+
+}
+
+});
+
+</script>
+
+{% endblock %}

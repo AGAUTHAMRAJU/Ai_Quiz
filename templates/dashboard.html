@@ -1,0 +1,405 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{% static 'css/dashboard.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+<div class="dashboard-hero">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<span class="badge bg-primary mb-3">
+
+Dashboard
+
+</span>
+
+<h1>
+
+Welcome Back,
+
+{{ request.user.first_name|default:request.user.username }}
+
+👋
+
+</h1>
+
+<p>
+
+Continue your AI learning journey by generating new assessments,
+tracking your performance and reviewing previous quizzes.
+
+</p>
+
+<div class="mt-4">
+
+<a
+href="{% url 'generate_quiz' %}"
+class="btn btn-primary btn-lg me-3">
+
+<i class="bi bi-stars me-2"></i>
+
+Generate Assessment
+
+</a>
+
+<a
+href="{% url 'history' %}"
+class="btn btn-outline-primary btn-lg">
+
+<i class="bi bi-clock-history me-2"></i>
+
+History
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="hero-user-card">
+
+<div class="profile-circle">
+
+<i class="bi bi-person-fill"></i>
+
+</div>
+
+<h3>
+
+{{ request.user.username }}
+
+</h3>
+
+<p>
+
+AI Learner
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mt-4">
+
+<div class="col-lg-3 col-md-6">
+
+<div class="stat-card">
+
+<i class="bi bi-file-earmark-text-fill"></i>
+
+<h5>
+
+Assessments
+
+</h5>
+
+<h2 class="counter"
+
+data-target="{{ total_assessments|default:0 }}">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="stat-card">
+
+<i class="bi bi-bar-chart-fill"></i>
+
+<h5>
+
+Average
+
+</h5>
+
+<h2>
+
+{{ average_score|default:0 }}%
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="stat-card">
+
+<i class="bi bi-award-fill"></i>
+
+<h5>
+
+Highest
+
+</h5>
+
+<h2>
+
+{{ highest_score|default:0 }}%
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="stat-card">
+
+<i class="bi bi-cpu-fill"></i>
+
+<h5>
+
+AI Powered
+
+</h5>
+
+<h2>
+
+24/7
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row mt-5">
+
+<div class="col-lg-4">
+
+<div class="quick-actions">
+
+<h3>
+
+Quick Actions
+
+</h3>
+
+<hr>
+
+<a
+href="{% url 'generate_quiz' %}"
+class="btn btn-primary w-100 mb-3">
+
+<i class="bi bi-stars me-2"></i>
+
+Generate Assessment
+
+</a>
+
+<a
+href="{% url 'history' %}"
+class="btn btn-success w-100 mb-3">
+
+<i class="bi bi-clock-history me-2"></i>
+
+View History
+
+</a>
+
+<a
+href="{% url 'profile' %}"
+class="btn btn-warning w-100">
+
+<i class="bi bi-person-circle me-2"></i>
+
+Profile
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-8">
+
+<div class="card p-4">
+
+<h3 class="mb-4">
+
+Recent Assessments
+
+</h3>
+
+{% if quizzes %}
+
+<div class="table-responsive">
+
+<table class="table align-middle">
+
+<thead>
+
+<tr>
+
+<th>
+
+Topic
+
+</th>
+
+<th>
+
+Difficulty
+
+</th>
+
+<th>
+
+Score
+
+</th>
+
+<th>
+
+Percentage
+
+</th>
+
+<th>
+
+Result
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for quiz in quizzes %}
+
+<tr>
+
+<td>
+
+{{ quiz.topic }}
+
+</td>
+
+<td>
+
+<span class="badge bg-info">
+
+{{ quiz.difficulty }}
+
+</span>
+
+</td>
+
+<td>
+
+{{ quiz.total_score }}
+
+</td>
+
+<td>
+
+{{ quiz.percentage }}%
+
+</td>
+
+<td>
+
+<a
+href="{% url 'result' quiz.id %}"
+class="btn btn-sm btn-primary">
+
+View
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+<i class="bi bi-file-earmark-x display-2"></i>
+
+<h4 class="mt-3">
+
+No Assessments Yet
+
+</h4>
+
+<p>
+
+Generate your first AI assessment.
+
+</p>
+
+<a
+href="{% url 'generate_quiz' %}"
+class="btn btn-primary">
+
+Generate Now
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% endblock %}

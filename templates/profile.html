@@ -1,0 +1,324 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+href="{% static 'css/profile.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-section">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-10">
+
+<div class="profile-header">
+
+<div class="row align-items-center">
+
+<div class="col-lg-3 text-center">
+
+<div class="profile-avatar">
+
+<i class="bi bi-person-fill"></i>
+
+</div>
+
+</div>
+
+<div class="col-lg-9">
+
+<h1>
+
+{{ request.user.first_name|default:request.user.username }}
+
+</h1>
+
+<p class="lead">
+
+AI Assessment Platform User
+
+</p>
+
+<div class="mt-3">
+
+<span class="badge bg-success">
+
+Active User
+
+</span>
+
+<span class="badge bg-primary">
+
+Groq AI
+
+</span>
+
+<span class="badge bg-warning text-dark">
+
+Student
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mt-4">
+
+<div class="col-lg-6">
+
+<div class="profile-card">
+
+<h4>
+
+<i class="bi bi-person-circle me-2"></i>
+
+Personal Information
+
+</h4>
+
+<hr>
+
+<table class="table">
+
+<tr>
+
+<th>
+
+Username
+
+</th>
+
+<td>
+
+{{ request.user.username }}
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Email
+
+</th>
+
+<td>
+
+{{ request.user.email }}
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Joined
+
+</th>
+
+<td>
+
+{{ request.user.date_joined|date:"d M Y" }}
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Last Login
+
+</th>
+
+<td>
+
+{{ request.user.last_login|date:"d M Y H:i" }}
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="profile-card">
+
+<h4>
+
+<i class="bi bi-bar-chart-fill me-2"></i>
+
+Performance
+
+</h4>
+
+<hr>
+
+<div class="stat-box">
+
+<h2>
+
+{{ total_assessments|default:0 }}
+
+</h2>
+
+<p>
+
+Assessments
+
+</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>
+
+{{ average_score|default:0 }}%
+
+</h2>
+
+<p>
+
+Average Score
+
+</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2>
+
+{{ highest_score|default:0 }}%
+
+</h2>
+
+<p>
+
+Highest Score
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row mt-5">
+
+<div class="col-lg-12">
+
+<div class="profile-card">
+
+<h4>
+
+Quick Actions
+
+</h4>
+
+<hr>
+
+<div class="row g-3">
+
+<div class="col-md-3">
+
+<a
+href="{% url 'generate_quiz' %}"
+class="btn btn-primary w-100">
+
+<i class="bi bi-stars me-2"></i>
+
+Generate
+
+</a>
+
+</div>
+
+<div class="col-md-3">
+
+<a
+href="{% url 'history' %}"
+class="btn btn-success w-100">
+
+<i class="bi bi-clock-history me-2"></i>
+
+History
+
+</a>
+
+</div>
+
+<div class="col-md-3">
+
+<a
+href="{% url 'dashboard' %}"
+class="btn btn-warning w-100">
+
+<i class="bi bi-speedometer2 me-2"></i>
+
+Dashboard
+
+</a>
+
+</div>
+
+<div class="col-md-3">
+
+<a
+href="{% url 'logout' %}"
+class="btn btn-danger w-100">
+
+<i class="bi bi-box-arrow-right me-2"></i>
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+.history-section{
+
+padding:90px 0;
+
+background:#f5f7fb;
+
+min-height:100vh;
+
+}
+
+.history-card{
+
+background:white;
+
+padding:30px;
+
+border-radius:22px;
+
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+transition:.35s;
+
+height:100%;
+
+}
+
+.history-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.history-card h4{
+
+font-weight:700;
+
+}
+
+.empty-state{
+
+padding:100px 20px;
+
+text-align:center;
+
+}
+
+.empty-state i{
+
+color:#2563eb;
+
+margin-bottom:20px;
+
+}
+
+body.dark .history-section{
+
+background:#0f172a;
+
+}
+
+body.dark .history-card{
+
+background:#1e293b;
+
+color:white;
+
+}

@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Take Assessment
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+href="{% static 'css/assessment.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<form
+method="POST"
+action="{% url 'submit_quiz' quiz.id %}"
+id="assessmentForm">
+
+{% csrf_token %}
+
+<!-- ===========================
+FIXED TOP TIMER BAR
+============================ -->
+
+<div class="fixed-assessment-bar">
+
+    <div class="bar-left">
+
+        <h5 class="mb-0">
+
+            {{ quiz.topic }}
+
+        </h5>
+
+        <small>
+
+            Difficulty :
+            {{ quiz.difficulty }}
+
+        </small>
+
+    </div>
+
+    <div class="bar-center">
+
+        <div class="progress timer-progress">
+
+            <div
+            id="progressFill"
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            style="width:100%">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bar-right">
+
+        <div
+        id="timer"
+        class="timer-display">
+
+            30:00
+
+        </div>
+
+        <small>
+
+            {{ mcq_questions|length|add:theory_questions|length }}
+            Questions
+
+        </small>
+
+    </div>
+
+</div>
+
+<section class="assessment-section">
+
+<div class="container-fluid mt-5">
+
+<div class="assessment-card">
+
+{% for question in mcq_questions %}
+
+<div class="question-card mb-5">
+
+<h5 class="fw-bold">
+
+Q{{ forloop.counter }}.
+
+{{ question.question }}
+
+</h5>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="option-card">
+
+<input
+type="radio"
+name="mcq_{{ question.id }}"
+value="{{ question.option1 }}"
+required>
+
+<span>
+
+{{ question.option1 }}
+
+</span>
+
+</label>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="option-card">
+
+<input
+type="radio"
+name="mcq_{{ question.id }}"
+value="{{ question.option2 }}">
+
+<span>
+
+{{ question.option2 }}
+
+</span>
+
+</label>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="option-card">
+
+<input
+type="radio"
+name="mcq_{{ question.id }}"
+value="{{ question.option3 }}">
+
+<span>
+
+{{ question.option3 }}
+
+</span>
+
+</label>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="option-card">
+
+<input
+type="radio"
+name="mcq_{{ question.id }}"
+value="{{ question.option4 }}">
+
+<span>
+
+{{ question.option4 }}
+
+</span>
+
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% if theory_questions %}
+
+<hr class="my-5">
+
+<h2 class="mb-4">
+
+Theory Questions
+
+</h2>
+
+{% for question in theory_questions %}
+
+<div class="question-card mb-5">
+
+<h5 class="fw-bold">
+
+Q{{ mcq_questions|length|add:forloop.counter }}.
+
+{{ question.question }}
+
+</h5>
+
+<hr>
+
+<textarea
+class="form-control theory-answer"
+rows="7"
+name="theory_{{ question.id }}"
+placeholder="Write your answer here..."
+required>
+
+</textarea>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+<div class="d-grid mt-5">
+
+<button
+type="submit"
+class="btn btn-success btn-lg"
+id="submitBtn">
+
+<i class="bi bi-check-circle-fill me-2"></i>
+
+Submit Assessment
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/timer.js' %}"></script>
+
+<script>
+
+function showRestrictedMessage() {
+
+    const toast = document.createElement("div");
+
+    toast.className =
+        "position-fixed top-50 start-50 translate-middle alert alert-danger shadow-lg";
+
+    toast.style.zIndex = "999999";
+
+    toast.style.minWidth = "320px";
+
+    toast.style.textAlign = "center";
+
+    toast.innerHTML = `
+        <strong>
+            🚫 Restricted by GM
+        </strong>
+        <br>
+        Copy, Paste, Cut and Right Click are disabled.
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(function () {
+
+        toast.remove();
+
+    }, 2000);
+
+}
+
+document.addEventListener("copy", function(e){
+
+    e.preventDefault();
+
+    showRestrictedMessage();
+
+});
+
+document.addEventListener("cut", function(e){
+
+    e.preventDefault();
+
+    showRestrictedMessage();
+
+});
+
+document.addEventListener("paste", function(e){
+
+    e.preventDefault();
+
+    showRestrictedMessage();
+
+});
+
+document.addEventListener("contextmenu", function(e){
+
+    e.preventDefault();
+
+    showRestrictedMessage();
+
+});
+
+document.addEventListener("keydown", function(e){
+
+    if(
+
+        (e.ctrlKey && ["c","v","x","a"].includes(e.key.toLowerCase())) ||
+
+        (e.metaKey && ["c","v","x","a"].includes(e.key.toLowerCase()))
+
+    ){
+
+        e.preventDefault();
+
+        showRestrictedMessage();
+
+    }
+
+});
+
+</script>
+
+
+{% endblock %}
+

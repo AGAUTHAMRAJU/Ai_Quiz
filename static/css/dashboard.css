@@ -1,0 +1,503 @@
+/*=========================================
+DASHBOARD
+=========================================*/
+
+.dashboard-section{
+
+padding:80px 0;
+
+background:#f5f7fb;
+
+min-height:100vh;
+
+}
+
+/*=========================================
+HERO
+=========================================*/
+
+.dashboard-hero{
+
+background:linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);
+
+border-radius:30px;
+
+padding:50px;
+
+color:white;
+
+box-shadow:0 20px 50px rgba(0,0,0,.18);
+
+}
+
+.dashboard-hero h1{
+
+font-size:42px;
+
+font-weight:700;
+
+margin-bottom:20px;
+
+}
+
+.dashboard-hero p{
+
+font-size:18px;
+
+line-height:1.8;
+
+color:#e5e7eb;
+
+}
+
+.dashboard-hero .btn{
+
+border-radius:12px;
+
+padding:12px 24px;
+
+font-weight:600;
+
+}
+
+.hero-user-card{
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(12px);
+
+border-radius:25px;
+
+padding:40px;
+
+text-align:center;
+
+}
+
+.profile-circle{
+
+width:120px;
+
+height:120px;
+
+border-radius:50%;
+
+background:white;
+
+margin:auto;
+
+margin-bottom:20px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:55px;
+
+color:#2563eb;
+
+box-shadow:0 15px 30px rgba(0,0,0,.15);
+
+}
+
+.hero-user-card h3{
+
+font-weight:700;
+
+margin-bottom:8px;
+
+}
+
+.hero-user-card p{
+
+margin:0;
+
+color:#f8fafc;
+
+}
+
+/*=========================================
+STATISTICS
+=========================================*/
+
+.stat-card{
+
+background:white;
+
+border-radius:22px;
+
+padding:35px;
+
+text-align:center;
+
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+transition:.35s;
+
+height:100%;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 25px 45px rgba(0,0,0,.16);
+
+}
+
+.stat-card i{
+
+font-size:42px;
+
+color:#2563eb;
+
+margin-bottom:18px;
+
+}
+
+.stat-card h5{
+
+margin-bottom:12px;
+
+font-weight:600;
+
+}
+
+.stat-card h2{
+
+font-size:38px;
+
+font-weight:700;
+
+color:#2563eb;
+
+}
+
+/*=========================================
+QUICK ACTIONS
+=========================================*/
+
+.quick-actions{
+
+background:white;
+
+padding:35px;
+
+border-radius:22px;
+
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+height:100%;
+
+}
+
+.quick-actions h3{
+
+font-weight:700;
+
+margin-bottom:20px;
+
+}
+
+.quick-actions .btn{
+
+padding:13px;
+
+font-weight:600;
+
+border-radius:12px;
+
+}
+
+/*=========================================
+TABLE
+=========================================*/
+
+.table{
+
+margin-bottom:0;
+
+}
+
+.table thead{
+
+background:#eef2ff;
+
+}
+
+.table thead th{
+
+padding:18px;
+
+font-weight:600;
+
+}
+
+.table td{
+
+padding:18px;
+
+vertical-align:middle;
+
+}
+
+.table tbody tr{
+
+transition:.3s;
+
+}
+
+.table tbody tr:hover{
+
+background:#f8fafc;
+
+}
+
+/*=========================================
+EMPTY STATE
+=========================================*/
+
+.empty-state{
+
+padding:70px 20px;
+
+text-align:center;
+
+}
+
+.empty-state i{
+
+color:#2563eb;
+
+margin-bottom:20px;
+
+}
+
+.empty-state h4{
+
+font-weight:700;
+
+margin-bottom:15px;
+
+}
+
+.empty-state p{
+
+color:#64748b;
+
+margin-bottom:25px;
+
+}
+
+/*=========================================
+BADGES
+=========================================*/
+
+.badge{
+
+padding:8px 14px;
+
+font-size:13px;
+
+}
+
+/*=========================================
+CARD
+=========================================*/
+
+.dashboard-section .card{
+
+border:none;
+
+border-radius:22px;
+
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+/*=========================================
+DARK MODE
+=========================================*/
+
+body.dark .dashboard-section{
+
+background:#0f172a;
+
+}
+
+body.dark .stat-card,
+
+body.dark .quick-actions,
+
+body.dark .dashboard-section .card{
+
+background:#1e293b;
+
+color:white;
+
+}
+
+body.dark .stat-card h2{
+
+color:#60a5fa;
+
+}
+
+body.dark .stat-card i{
+
+color:#60a5fa;
+
+}
+
+body.dark .table{
+
+color:white;
+
+}
+
+body.dark .table thead{
+
+background:#334155;
+
+}
+
+body.dark .table td,
+
+body.dark .table th{
+
+border-color:#475569;
+
+}
+
+body.dark .table tbody tr:hover{
+
+background:#334155;
+
+}
+
+body.dark .empty-state p{
+
+color:#cbd5e1;
+
+}
+
+body.dark .quick-actions hr{
+
+border-color:#475569;
+
+}
+
+/*=========================================
+RESPONSIVE
+=========================================*/
+
+@media(max-width:992px){
+
+.dashboard-hero{
+
+text-align:center;
+
+padding:35px;
+
+}
+
+.hero-user-card{
+
+margin-top:35px;
+
+}
+
+.dashboard-hero h1{
+
+font-size:34px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.dashboard-hero{
+
+padding:30px;
+
+}
+
+.dashboard-hero h1{
+
+font-size:28px;
+
+}
+
+.dashboard-hero p{
+
+font-size:16px;
+
+}
+
+.stat-card{
+
+padding:25px;
+
+}
+
+.quick-actions{
+
+margin-bottom:25px;
+
+}
+
+.table-responsive{
+
+overflow-x:auto;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.dashboard-section{
+
+padding:40px 0;
+
+}
+
+.dashboard-hero{
+
+border-radius:20px;
+
+}
+
+.hero-user-card{
+
+padding:25px;
+
+}
+
+.profile-circle{
+
+width:90px;
+
+height:90px;
+
+font-size:42px;
+
+}
+
+.stat-card h2{
+
+font-size:30px;
+
+}
+
+.quick-actions{
+
+padding:25px;
+
+}
+
+}

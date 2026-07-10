@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{% static 'css/auth.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-6 col-md-8">
+
+<div class="auth-card">
+
+<div class="text-center mb-4">
+
+<div class="auth-icon">
+
+<i class="bi bi-person-plus-fill"></i>
+
+</div>
+
+<h2 class="fw-bold">
+
+Create Account
+
+</h2>
+
+<p class="text-muted">
+
+Start your AI-powered learning journey.
+
+</p>
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Username
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="bi bi-person-fill"></i>
+
+</span>
+
+<input
+type="text"
+name="username"
+class="form-control"
+placeholder="Enter Username"
+value="{{ form.username.value|default:'' }}"
+required>
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Email
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="bi bi-envelope-fill"></i>
+
+</span>
+
+<input
+type="email"
+name="email"
+class="form-control"
+placeholder="Enter Email"
+value="{{ form.email.value|default:'' }}"
+required>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Password
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="bi bi-lock-fill"></i>
+
+</span>
+
+<input
+type="password"
+name="password"
+id="password"
+class="form-control"
+placeholder="Enter Password"
+required>
+
+<button
+class="btn btn-outline-secondary"
+type="button"
+id="togglePassword">
+
+<i class="bi bi-eye-fill"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="mb-4">
+
+<label class="form-label">
+
+Confirm Password
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="bi bi-shield-lock-fill"></i>
+
+</span>
+
+<input
+type="password"
+name="confirm_password"
+id="confirmPassword"
+class="form-control"
+placeholder="Confirm Password"
+required>
+
+<button
+class="btn btn-outline-secondary"
+type="button"
+id="toggleConfirmPassword">
+
+<i class="bi bi-eye-fill"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="d-grid mb-3">
+
+<button
+type="submit"
+class="btn btn-primary btn-lg">
+
+<i class="bi bi-person-check-fill me-2"></i>
+
+Create Account
+
+</button>
+
+</div>
+
+<hr>
+
+<div class="text-center">
+
+Already have an account?
+
+<a href="{% url 'login' %}">
+
+Login
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+function togglePassword(inputId, buttonId){
+
+const input=document.getElementById(inputId);
+
+const button=document.getElementById(buttonId);
+
+button.addEventListener("click",function(){
+
+if(input.type==="password"){
+
+input.type="text";
+
+button.innerHTML='<i class="bi bi-eye-slash-fill"></i>';
+
+}
+
+else{
+
+input.type="password";
+
+button.innerHTML='<i class="bi bi-eye-fill"></i>';
+
+}
+
+});
+
+}
+
+togglePassword("password","togglePassword");
+
+togglePassword("confirmPassword","toggleConfirmPassword");
+
+</script>
+
+{% endblock %}

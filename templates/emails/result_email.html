@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f8f9fa;
+padding:30px;
+}
+
+.card{
+
+background:white;
+padding:25px;
+border-radius:10px;
+
+}
+
+.score{
+
+font-size:22px;
+font-weight:bold;
+color:#0d6efd;
+
+}
+
+table{
+
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+
+}
+
+td{
+
+padding:10px;
+border-bottom:1px solid #ddd;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Assessment Result</h2>
+
+<p>Hello {{ user.first_name|default:user.username }},</p>
+
+<p>Your assessment has been successfully evaluated.</p>
+
+<table>
+
+<tr>
+
+<td><b>Topic</b></td>
+
+<td>{{ quiz.topic }}</td>
+
+</tr>
+
+<tr>
+
+<td><b>MCQ Score</b></td>
+
+<td>{{ quiz.mcq_score }}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Theory Score</b></td>
+
+<td>{{ quiz.theory_score }}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Total Score</b></td>
+
+<td>{{ quiz.total_score }}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Percentage</b></td>
+
+<td>{{ quiz.percentage }}%</td>
+
+</tr>
+
+</table>
+
+<p class="score">
+
+Congratulations on completing your assessment.
+
+</p>
+
+<p>
+
+The detailed PDF report is attached with this email.
+
+</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Assessment History
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+href="{% static 'css/history.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="history-section">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<span class="badge bg-primary">
+
+History
+
+</span>
+
+<h1 class="section-title mt-3">
+
+Assessment History
+
+</h1>
+
+<p class="section-subtitle">
+
+Review every assessment you've completed.
+
+</p>
+
+</div>
+
+{% if quizzes %}
+
+<div class="row g-4">
+
+{% for quiz in quizzes %}
+
+<div class="col-lg-4 col-md-6">
+
+<div class="history-card">
+
+<div class="d-flex justify-content-between">
+
+<h4>
+
+{{ quiz.topic }}
+
+</h4>
+
+<span class="badge bg-info">
+
+{{ quiz.difficulty }}
+
+</span>
+
+</div>
+
+<hr>
+
+<p>
+
+<i class="bi bi-calendar-event me-2"></i>
+
+{{ quiz.created_at|date:"d M Y" }}
+
+</p>
+
+<p>
+
+<i class="bi bi-check-circle-fill text-success me-2"></i>
+
+Score :
+
+<strong>
+
+{{ quiz.total_score }}
+
+</strong>
+
+</p>
+
+<p>
+
+<i class="bi bi-bar-chart-fill text-primary me-2"></i>
+
+Percentage :
+
+<strong>
+
+{{ quiz.percentage }}%
+
+</strong>
+
+</p>
+
+<div class="d-grid mt-4">
+
+<a
+href="{% url 'result' quiz.id %}"
+class="btn btn-primary">
+
+<i class="bi bi-eye-fill me-2"></i>
+
+View Result
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+<i class="bi bi-clock-history display-1"></i>
+
+<h3>
+
+No Assessment History
+
+</h3>
+
+<p>
+
+Generate your first assessment.
+
+</p>
+
+<a
+href="{% url 'generate_quiz' %}"
+class="btn btn-primary">
+
+Generate Assessment
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</section>
+
+{% endblock %}

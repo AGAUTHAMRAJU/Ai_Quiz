@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Assessment Report</title>
+
+<style>
+
+body{
+
+font-family:Helvetica;
+
+font-size:12px;
+
+margin:30px;
+
+color:#222;
+
+}
+
+h1{
+
+text-align:center;
+
+color:#0d6efd;
+
+margin-bottom:5px;
+
+}
+
+h2{
+
+color:#0d6efd;
+
+margin-top:30px;
+
+border-bottom:1px solid #ccc;
+
+padding-bottom:5px;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:15px;
+
+margin-bottom:20px;
+
+}
+
+table th{
+
+background:#0d6efd;
+
+color:white;
+
+padding:8px;
+
+border:1px solid #ccc;
+
+}
+
+table td{
+
+padding:8px;
+
+border:1px solid #ccc;
+
+vertical-align:top;
+
+}
+
+.card{
+
+border:1px solid #ccc;
+
+padding:15px;
+
+margin-bottom:15px;
+
+}
+
+.correct{
+
+color:green;
+
+font-weight:bold;
+
+}
+
+.wrong{
+
+color:red;
+
+font-weight:bold;
+
+}
+
+.info{
+
+margin-bottom:6px;
+
+}
+
+.footer{
+
+margin-top:40px;
+
+text-align:center;
+
+font-size:11px;
+
+color:#666;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>AiQuiz Developed by GM</h1>
+
+<p style="text-align:center;">
+Assessment Result
+</p>
+
+<hr>
+
+<h2>Student Details</h2>
+
+<table>
+
+<tr>
+
+<th>Name</th>
+
+<td>{{ quiz.user.get_full_name|default:quiz.user.username }}</td>
+
+</tr>
+
+<tr>
+
+<th>Email</th>
+
+<td>{{ quiz.user.email }}</td>
+
+</tr>
+
+<tr>
+
+<th>Topic</th>
+
+<td>{{ quiz.topic }}</td>
+
+</tr>
+
+<tr>
+
+<th>Difficulty</th>
+
+<td>{{ quiz.difficulty }}</td>
+
+</tr>
+
+<tr>
+
+<th>Date</th>
+
+<td>{{ quiz.created_at }}</td>
+
+</tr>
+
+</table>
+
+<h2>Result Summary</h2>
+
+<table>
+
+<tr>
+
+<th>MCQ Score</th>
+
+<th>Theory Score</th>
+
+<th>Total</th>
+
+<th>Percentage</th>
+
+</tr>
+
+<tr>
+
+<td>{{ quiz.mcq_score }}</td>
+
+<td>{{ quiz.theory_score }}</td>
+
+<td>{{ quiz.total_score }}</td>
+
+<td>{{ quiz.percentage }}%</td>
+
+</tr>
+
+</table>
+
+<h2>AI Feedback</h2>
+
+<div class="card">
+
+{{ feedback|linebreaks }}
+
+</div>
+
+<h2>MCQ Review</h2>
+
+{% for answer in mcq_answers %}
+
+<div class="card">
+
+<p>
+
+<b>{{ forloop.counter }}.
+{{ answer.question.question }}</b>
+
+</p>
+
+<p>
+
+<b>Your Answer:</b>
+
+{{ answer.selected_answer }}
+
+</p>
+
+<p>
+
+<b>Correct Answer:</b>
+
+{{ answer.question.correct_answer }}
+
+</p>
+
+<p>
+
+<b>Explanation:</b>
+
+{{ answer.question.explanation }}
+
+</p>
+
+{% if answer.is_correct %}
+
+<p class="correct">
+
+Correct
+
+</p>
+
+{% else %}
+
+<p class="wrong">
+
+Wrong
+
+</p>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+<h2>Theory Review</h2>
+
+{% for answer in theory_answers %}
+
+<div class="card">
+
+<p>
+
+<b>{{ forloop.counter }}.
+{{ answer.question.question }}</b>
+
+</p>
+
+<p>
+
+<b>Your Answer</b>
+
+</p>
+
+<p>
+
+{{ answer.answer }}
+
+</p>
+
+<p>
+
+<b>Expected Answer</b>
+
+</p>
+
+<p>
+
+{{ answer.question.expected_answer }}
+
+</p>
+
+<p>
+
+<b>Marks:</b>
+
+{{ answer.score }}/10
+
+</p>
+
+<p>
+
+<b>Feedback</b>
+
+</p>
+
+<p>
+
+{{ answer.feedback }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+<div class="footer">
+
+AiQuiz Developed by GM
+
+<br>
+
+{{ quiz.created_at }}
+
+</div>
+
+</body>
+
+</html>

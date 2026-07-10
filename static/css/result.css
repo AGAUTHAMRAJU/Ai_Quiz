@@ -1,0 +1,167 @@
+.result-section{
+
+padding:90px 0;
+
+background:#f5f7fb;
+
+min-height:100vh;
+
+}
+
+.result-header{
+
+background:linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);
+
+padding:45px;
+
+border-radius:25px;
+
+color:white;
+
+margin-bottom:35px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+}
+
+.score-card{
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.score-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.score-card i{
+
+font-size:40px;
+
+color:#2563eb;
+
+margin-bottom:15px;
+
+}
+
+.score-card h2{
+
+font-size:38px;
+
+font-weight:700;
+
+margin-top:10px;
+
+}
+
+.result-section .card{
+
+border:none;
+
+border-radius:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.result-section .alert{
+
+border:none;
+
+border-radius:12px;
+
+}
+
+body.dark .result-section{
+
+background:#0f172a;
+
+}
+
+body.dark .score-card,
+
+body.dark .result-section .card{
+
+background:#1e293b;
+
+color:white;
+
+}
+
+body.dark .score-card i{
+
+color:#60a5fa;
+
+}
+
+body.dark .alert-secondary{
+
+background:#334155;
+
+color:white;
+
+}
+
+body.dark .alert-info{
+
+background:#1e40af;
+
+color:white;
+
+}
+
+body.dark .alert-warning{
+
+background:#92400e;
+
+color:white;
+
+}
+
+@media(max-width:768px){
+
+.result-header{
+
+text-align:center;
+
+padding:30px;
+
+}
+
+.score-card{
+
+padding:25px;
+
+}
+
+}
+
+
+.alert-primary{
+    background: #cfe2ff;
+    color: #000 !important;
+    border: 1px solid #9ec5fe;
+}
+
+body.dark .alert-primary{
+    background: #334155 !important;
+    color: #ffffff !important;
+    border: 1px solid #64748b;
+}
+
+
+

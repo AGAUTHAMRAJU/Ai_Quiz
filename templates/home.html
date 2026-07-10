@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+AiQuiz | AI-Powered Assessment Platform
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{% static 'css/home.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+{% include "partials/hero.html" %}
+
+{% include "partials/about.html" %}
+
+{% include "partials/features.html" %}
+
+{% include "partials/workflow.html" %}
+
+{% include "partials/faq.html" %}
+
+{% include "partials/contact.html" %}
+
+{% include "partials/cta.html" %}
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/home.js' %}"></script>
+
+{% endblock %}
+

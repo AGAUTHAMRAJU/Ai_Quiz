@@ -1,0 +1,569 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Assessment Result
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+href="{% static 'css/result.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<section class="result-section">
+
+<div class="container">
+
+<div class="result-header mb-5">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<h1>
+
+Assessment Completed This is my result🎉
+
+</h1>
+
+<p class="text-muted">
+
+<strong>Topic :</strong>
+
+{{ quiz.topic }}
+
+</p>
+
+<p class="text-muted">
+
+<strong>Difficulty :</strong>
+
+{{ quiz.difficulty }}
+
+</p>
+
+<p class="text-muted">
+
+<strong>Date :</strong>
+
+{{ quiz.created_at }}
+
+</p>
+
+</div>
+
+<div class="col-lg-4 text-lg-end">
+
+<a
+href="{% url 'export_result_pdf' quiz.id %}"
+class="btn btn-danger btn-lg">
+
+<i class="bi bi-file-earmark-pdf-fill me-2"></i>
+
+Download PDF
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-3 col-md-6">
+
+<div class="score-card">
+
+<i class="bi bi-check-circle-fill"></i>
+
+<h5>
+
+MCQ Score
+
+</h5>
+
+<h2>
+
+{{ quiz.mcq_score }}/{{ mcq_total }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="score-card">
+
+<i class="bi bi-pencil-square"></i>
+
+<h5>
+
+Theory Score
+
+</h5>
+
+<h2>
+
+{{ quiz.theory_score }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="score-card">
+
+<i class="bi bi-award-fill"></i>
+
+<h5>
+
+Total Score
+
+</h5>
+
+<h2>
+
+{{ quiz.total_score }}/{{ max_marks }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="score-card bg-primary text-white">
+
+<i class="bi bi-bar-chart-fill"></i>
+
+<h5>
+
+Percentage
+
+</h5>
+
+<h2>
+
+{{ quiz.percentage }}%
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card mt-5">
+
+<div class="card-header bg-success text-white">
+
+<h4 class="mb-0">
+
+<i class="bi bi-robot me-2"></i>
+
+AI Feedback
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+{{ feedback|linebreaks }}
+
+</div>
+
+</div>
+
+<div class="mt-5">
+
+<h2 class="mb-4">
+
+MCQ Review
+
+</h2>
+
+{% for answer in mcq_answers %}
+
+<div class="card mb-4 shadow-sm">
+
+<div class="card-body">
+
+<h5>
+
+Q{{ forloop.counter }}.
+
+{{ answer.question.question }}
+
+</h5>
+
+<hr>
+
+<p>
+
+<strong>Your Answer</strong>
+
+</p>
+
+{% if answer.selected_answer %}
+
+{% if answer.is_correct %}
+
+<div class="alert alert-success">
+
+<i class="bi bi-check-circle-fill me-2"></i>
+
+{{ answer.selected_answer }}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-danger">
+
+<i class="bi bi-x-circle-fill me-2"></i>
+
+{{ answer.selected_answer }}
+
+</div>
+
+{% endif %}
+
+{% else %}
+
+<div class="alert alert-warning">
+
+Not Answered
+
+</div>
+
+{% endif %}
+
+<p>
+
+<strong>Correct Answer</strong>
+
+</p>
+
+<div class="alert alert-primary">
+
+{{ answer.question.correct_answer }}
+
+</div>
+
+<p>
+
+<strong>Explanation</strong>
+
+</p>
+
+<div class="alert alert-warning">
+
+{{ answer.question.explanation }}
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-info">
+
+No MCQ Answers Found.
+
+</div>
+
+{% endfor %}
+
+<!-- ========= PART 1 ENDS HERE ========= -->
+
+
+{% if theory_answers %}
+
+<div class="mt-5">
+
+<h2 class="mb-4">
+
+Theory Evaluation
+
+</h2>
+
+{% for theory in theory_answers %}
+
+<div class="card mb-4 shadow-sm">
+
+<div class="card-body">
+
+<h5>
+
+Q{{ forloop.counter }}.
+
+{{ theory.question.question }}
+
+</h5>
+
+<hr>
+
+<p>
+
+<strong>
+
+Your Answer
+
+</strong>
+
+</p>
+
+{% if theory.answer %}
+
+<div class="alert alert-secondary">
+
+{{ theory.answer|linebreaks }}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-warning">
+
+No Answer Submitted
+
+</div>
+
+{% endif %}
+
+<p>
+
+<strong>
+
+Expected Answer
+
+</strong>
+
+</p>
+
+<div class="alert alert-primary">
+
+{{ theory.question.expected_answer|linebreaks }}
+
+</div>
+
+<p>
+
+<strong>
+
+AI Feedback
+
+</strong>
+
+</p>
+
+<div class="alert alert-info">
+
+{{ theory.feedback|linebreaks }}
+
+</div>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+
+<strong>
+
+Marks Awarded
+
+</strong>
+
+<span class="badge bg-success fs-5">
+
+{{ theory.score }}/10
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-info">
+
+No Theory Questions Found.
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+<div class="card mt-5 shadow-sm">
+
+<div class="card-header bg-dark text-white">
+
+<h4 class="mb-0">
+
+Assessment Summary
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<p>
+
+<strong>
+
+Topic
+
+</strong>
+
+</p>
+
+<p>
+
+{{ quiz.topic }}
+
+</p>
+
+</div>
+
+<div class="col-md-6">
+
+<p>
+
+<strong>
+
+Difficulty
+
+</strong>
+
+</p>
+
+<p>
+
+{{ quiz.difficulty }}
+
+</p>
+
+</div>
+
+<div class="col-md-6">
+
+<p>
+
+<strong>
+
+Assessment Type
+
+</strong>
+
+</p>
+
+<p>
+
+{{ quiz.quiz_type }}
+
+</p>
+
+</div>
+
+<div class="col-md-6">
+
+<p>
+
+<strong>
+
+Completed On
+
+</strong>
+
+</p>
+
+<p>
+
+{{ quiz.created_at }}
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="text-center mt-5 mb-5">
+
+<a
+href="{% url 'generate_quiz' %}"
+class="btn btn-primary btn-lg me-2">
+
+<i class="bi bi-stars me-2"></i>
+
+Generate Another Assessment
+
+</a>
+
+<a
+href="{% url 'history' %}"
+class="btn btn-success btn-lg me-2">
+
+<i class="bi bi-clock-history me-2"></i>
+
+History
+
+</a>
+
+<a
+href="{% url 'dashboard' %}"
+class="btn btn-outline-primary btn-lg">
+
+<i class="bi bi-speedometer2 me-2"></i>
+
+Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+{% block extra_js %}
+
+<script>
+
+localStorage.removeItem("quiz_timer_{{ quiz.id }}");
+
+</script>
+
+{% endblock %}
+
+
+
+{% endblock %}
