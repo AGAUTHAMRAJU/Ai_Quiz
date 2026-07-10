@@ -55,9 +55,62 @@ from .utils import send_otp
 def home(request):
     return render(request, "home.html")
 
+# def register(request):
+
+#     if request.user.is_authenticated:
+#         return redirect("dashboard")
+
+#     form = RegisterForm()
+
+#     if request.method == "POST":
+
+#         form = RegisterForm(request.POST)
+
+#         if form.is_valid():
+
+#             user = User.objects.create_user(
+
+#                 username=form.cleaned_data["username"],
+
+#                 email=form.cleaned_data["email"],
+
+#                 password=form.cleaned_data["password"],
+
+#                 is_active=False,
+
+#             )
+
+#             send_otp(user)
+
+#             request.session["otp_user"] = user.id
+
+#             messages.success(
+#                 request,
+#                 "OTP has been sent to your email."
+#             )
+
+#             return redirect("verify_otp")
+
+#         else:
+
+#             for field in form.errors:
+
+#                 for error in form.errors[field]:
+
+#                     messages.error(request, error)
+
+#     return render(
+#         request,
+#         "register.html",
+#         {
+#             "form": form
+#         }
+#     )
+
 def register(request):
 
     if request.user.is_authenticated:
+
         return redirect("dashboard")
 
     form = RegisterForm()
@@ -68,44 +121,99 @@ def register(request):
 
         if form.is_valid():
 
-            user = User.objects.create_user(
+            try:
 
-                username=form.cleaned_data["username"],
+                print("=" * 60)
+                print("REGISTER FORM VALID")
+                print("Username :", form.cleaned_data["username"])
+                print("Email    :", form.cleaned_data["email"])
+                print("=" * 60)
 
-                email=form.cleaned_data["email"],
+                user = User.objects.create_user(
 
-                password=form.cleaned_data["password"],
+                    username=form.cleaned_data["username"],
 
-                is_active=False,
+                    email=form.cleaned_data["email"],
 
-            )
+                    password=form.cleaned_data["password"],
 
-            send_otp(user)
+                    is_active=False,
 
-            request.session["otp_user"] = user.id
+                )
 
-            messages.success(
-                request,
-                "OTP has been sent to your email."
-            )
+                print("USER CREATED :", user.username)
 
-            return redirect("verify_otp")
+                send_otp(user)
+
+                print("OTP SENT SUCCESSFULLY")
+
+                request.session["otp_user"] = user.id
+
+                messages.success(
+
+                    request,
+
+                    "OTP has been sent to your email."
+
+                )
+
+                return redirect("verify_otp")
+
+            except Exception as e:
+
+                print("=" * 60)
+                print("REGISTER ERROR")
+                print(str(e))
+                print("=" * 60)
+
+                if "user" in locals():
+
+                    user.delete()
+
+                messages.error(
+
+                    request,
+
+                    "Unable to send OTP. Please try again."
+
+                )
 
         else:
+
+            print("=" * 60)
+            print("FORM ERRORS")
+            print(form.errors)
+            print("=" * 60)
 
             for field in form.errors:
 
                 for error in form.errors[field]:
 
-                    messages.error(request, error)
+                    messages.error(
+
+                        request,
+
+                        error
+
+                    )
 
     return render(
+
         request,
+
         "register.html",
+
         {
+
             "form": form
+
         }
+
     )
+
+
+
+
 
 def verify_otp(request):
 
