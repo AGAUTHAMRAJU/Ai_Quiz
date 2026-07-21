@@ -211,30 +211,24 @@ Powered by Django + Groq AI
 """
 
     email = EmailMultiAlternatives(
-
-        subject,
-
-        text_content,
-
-        settings.DEFAULT_FROM_EMAIL,
-
-        [user.email]
-
+    subject,
+    text_content,
+    settings.DEFAULT_FROM_EMAIL,
+    [user.email],
     )
 
-    email.attach_alternative(
+    email.attach_alternative(html_content, "text/html")
 
-        html_content,
+    print("Before email.send()")
 
-        "text/html"
-
-    )
-
-    email.send(
-
-        fail_silently=False
-
-    )
+    try:
+        email.send(fail_silently=False)
+        print("Email sent successfully")
+    except Exception as e:
+        import traceback
+        print("SMTP ERROR:")
+        traceback.print_exc()
+        raise
 
 
 def resend_otp(user):
