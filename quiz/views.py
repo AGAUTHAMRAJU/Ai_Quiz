@@ -212,9 +212,6 @@ def register(request):
     )
 
 
-
-
-
 def verify_otp(request):
 
     user_id = request.session.get("otp_user")
